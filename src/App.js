@@ -10,9 +10,9 @@ const App = () => {
       <OverviewContextProvider>
         <Aside />
       </OverviewContextProvider>
-      {/* <ReadingsContextProvider>
+      <ReadingsContextProvider>
         <Main />
-      </ReadingsContextProvider> */}
+      </ReadingsContextProvider>
 
     </div>
   );
