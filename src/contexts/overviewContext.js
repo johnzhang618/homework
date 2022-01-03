@@ -6,12 +6,17 @@ export const OverviewContext = createContext();
 
 const OverviewContextProvider = (props) => {
     const [overview, dispatch] = useReducer(overviewReducer, [], () => {
-        return getOverviewData();
+        const localData = localStorage.getItem('overview');
+        return localData ? JSON.parse(localData) : [];
     });
-    console.log(overview)
-    useEffect(() => {
-        localStorage.setItem('overview', JSON.stringify(overview));
-    }, [overview]);
+    useEffect(async () => {
+        const queryData = await getOverviewData()
+        dispatch({
+            type: "UPDATE_OVERVIEW",
+            overview: queryData
+        })
+        localStorage.setItem('overview', JSON.stringify(queryData));
+    }, []);
     return (
         <OverviewContext.Provider value={{ overview, dispatch }}>
             {props.children}

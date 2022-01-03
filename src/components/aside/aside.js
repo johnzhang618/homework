@@ -8,12 +8,12 @@ const Aside = () => {
     return (
         <aside className="p3 menuWidth overflow-auto">
             {
-                overview.gridState.map((iterm, k) => <OverviewCard key={k} data={iterm} />)
+                overview.gridState && overview.gridState.map((iterm, k) => <OverviewCard key={k} data={iterm} />)
             }
             <section className="h5 darkgray mb2">
                 <h4 className="h4 mb1">Your devices:</h4>
                 {
-                    overview.devices.map((iterm, k) => <DeviceCard key={k} data={iterm} />)
+                    overview.devices && overview.devices.map((iterm, k) => <DeviceCard key={k} data={iterm} />)
                 }
             </section>
         </aside>

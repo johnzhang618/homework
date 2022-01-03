@@ -1,4 +1,4 @@
-const fakeData = {
+export const fakeData = {
     gridState: [
         {
             icon: "⚡️",
@@ -40,6 +40,29 @@ const fakeData = {
     ]
 }
 
-export const getOverviewData = () => {
-    return fakeData
+const randomOverview = new Promise((resolve) => {
+    const
+        oneDay = 1000 * 60 * 60 * 24,
+        current = Date.parse(new Date()) / 1000 % oneDay / oneDay,
+        result = {
+            gridState: [...new Array(fakeData.gridState.length)].map((_, index) => ({
+                icon: fakeData.gridState[index].icon,
+                term: fakeData.gridState[index].term,
+                value: (Math.random() * current * 4 + .5).toFixed(1),
+            })),
+            devices: [...new Array(fakeData.devices.length)].map((_, index) => ({
+                name: fakeData.devices[index].name,
+                value: (Math.random() * current / 5 + .05).toFixed(4),
+            }))
+        }
+    setTimeout(() => resolve(result), 500)
+})
+
+// 模拟接口请求
+export const getOverviewData = async () => {
+    let overview
+    await randomOverview.then((res) => {
+        overview = res
+    })
+    return overview
 }
