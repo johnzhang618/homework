@@ -1,46 +1,5 @@
-import { zeroPadding, getChartData, formatDateLabel, formatTimeLabel, groupByFormat, sortByTime, getReadings } from "./utils";
+import { zeroPadding, formatDateLabel, formatTimeLabel, arraySortByTime, groupByDay } from "./utils";
 
-// 尝试使用TDD方式进行开发 
-
-
-// todo: getChartData 获取最终渲染所需数据
-// 原项目是直接调用多个函数计算得出 调用的getReadings方法可能出现问题 且缺乏拓展性
-// 传入所需数据的范围和纬度来获取对应数据
-describe("#getChartData", () => {
-    // todo: 检测数据范围是否达标
-    // it("should generate result with specified range", () => {
-    //     const range = 100;
-    //     expect(getChartData(range)).toHaveLength(range);
-    // });
-    // todo: 检测数据纬度为天、时时返回数据是否准确（每秒小于1.1大于0.4）
-    // it("should generate result by day && ordered by time descending && the result value in a normal range", () => {
-    //     const
-    //         unitRange = 60 * 60 * 24,
-    //         max = 1.1 * unitRange,
-    //         min = 0.4 * unitRange,
-    //         range = 30,
-    //         unit = "daily",
-    //         result = getChartData(range, unit);
-    //     expect(result[1].value).toBeWithinRange(min, max);
-    //     expect(result[1].time % unitRange).toBe(0);
-    //     expect(result[1].time - result[2].time).toBe(unitRange);
-    // });
-    it("should generate result by hour && ordered by time descending && the result value in a normal range", () => {
-        const
-            unitRange = 60 * 60,
-            max = 1.1 * unitRange,
-            min = 0.4 * unitRange,
-            range = 24,
-            unit = "hourly",
-            result = getChartData(range, unit);
-        expect(result[1].value).toBeWithinRange(min, max);
-        expect(result[1].time % unitRange).toBe(0);
-        expect(result[1].time - result[2].time).toBe(unitRange);
-    });
-});
-
-// todo: formatUnitLabel 对应原项目formatDateLabel
-// 增加拓展性 兼容小时单位
 describe("#chart formatDateLabel", () => {
     it("should format date label", () => {
         expect(formatDateLabel(new Date(2021, 0, 1).getTime())).toBe("01/01");
@@ -61,41 +20,7 @@ describe("#chart formatTimeLabel", () => {
     });
 });
 
-// todo: groupByRange 对应原项目 groupedByDay
-// 增加拓展性 兼容group by hour
-describe("#groupByFormat", () => {
-    it("should get readings grouped by hour", () => {
-        const readings = [
-            {
-                time: new Date(2021, 12, 17, 10, 24).getTime(),
-                value: 50
-            },
-            {
-                time: new Date(2021, 12, 17, 9, 24).getTime(),
-                value: 40,
-            },
-            {
-                time: new Date(2021, 12, 16, 10, 34).getTime(),
-                value: 35,
-            },
-        ];
-
-        const groupedReadings = groupByFormat(readings, "hourly");
-        expect(groupedReadings).toEqual([
-            {
-                time: new Date(2021, 12, 17, 10, 24).getTime(),
-                value: 50
-            },
-            {
-                time: new Date(2021, 12, 17, 9, 24).getTime(),
-                value: 40,
-            },
-            {
-                time: new Date(2021, 12, 16, 10, 34).getTime(),
-                value: 35,
-            },
-        ]);
-    });
+describe("#groupByDay", () => {
 
     it("should get readings grouped by day", async () => {
         const readings = [
@@ -117,7 +42,7 @@ describe("#groupByFormat", () => {
             },
         ];
 
-        const groupedReadings = groupByFormat(readings, "daily");
+        const groupedReadings = groupByDay(readings, "daily");
         expect(groupedReadings).toHaveLength(3);
         expect(
             groupedReadings.find(
@@ -132,9 +57,7 @@ describe("#groupByFormat", () => {
     });
 });
 
-// todo: sortByTime 数据排序
-// 原项目方法可直接搬
-describe("#sortByTime", () => {
+describe("#arraySortByTime", () => {
     it("should put latest reading to the last", () => {
         const readings = [
             {
@@ -155,7 +78,7 @@ describe("#sortByTime", () => {
             },
         ];
 
-        const sortedReading = sortByTime(readings);
+        const sortedReading = arraySortByTime(readings);
         expect(sortedReading).toHaveLength(4);
         expect(sortedReading[0]).toMatchObject({
             time: new Date(2021, 12, 15, 11, 34).getTime(),
@@ -183,7 +106,7 @@ describe("#sortByTime", () => {
             },
         ];
 
-        const sortedReading = sortByTime(readings);
+        const sortedReading = arraySortByTime(readings);
         expect(sortedReading).toHaveLength(3);
         expect(sortedReading).toEqual([
             {
@@ -202,38 +125,6 @@ describe("#sortByTime", () => {
     });
 });
 
-
-
-
-
-// getReadings 获取原始数据
-// 
-// 这个函数没有问题， 但是调用可能会出现问题， 可以直接搬来用
-describe("#getReadings", () => {
-    it("should generate readings with specified length", async () => {
-        const length = 100;
-        expect(await getReadings(length)).toHaveLength(length);
-    });
-
-    it("should generate readings with timestamps and random values", async () => {
-        const reading = (await getReadings(1))[0];
-
-        expect(typeof reading.time).toBe("number");
-        expect(typeof reading.value).toBe("number");
-    });
-
-    it("should generate readings by hours and ordered by time descending", async () => {
-        const readings = await getReadings(4);
-
-        expect(readings).toHaveLength(4);
-        const OneHourInMilliseconds = 60 * 60 * 1000;
-        expect(readings[0].time - readings[1].time).toBe(OneHourInMilliseconds);
-        expect(readings[1].time - readings[2].time).toBe(OneHourInMilliseconds);
-        expect(readings[2].time - readings[3].time).toBe(OneHourInMilliseconds);
-    });
-});
-
-// zeroPadding 小于10补零
 describe("#chart zeroPadding", () => {
     it("should format unit label", () => {
         expect(zeroPadding(8)).toBe("08");
