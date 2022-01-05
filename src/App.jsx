@@ -1,0 +1,21 @@
+import "./basscss.css";
+import React from "react";
+import Aside from "./components/aside/Aside";
+import Main from "./components/main/Main";
+import OverviewContextProvider from "./contexts/OverviewContext";
+import ReadingsContextProvider from "./contexts/ReadingsContext";
+
+function App() {
+  return (
+    <div className="App background shadow-2 flex overflow-hidden">
+      <OverviewContextProvider>
+        <Aside />
+      </OverviewContextProvider>
+      <ReadingsContextProvider>
+        <Main />
+      </ReadingsContextProvider>
+    </div>
+  );
+}
+
+export default App;

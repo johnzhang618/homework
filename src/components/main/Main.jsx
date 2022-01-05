@@ -1,11 +1,13 @@
-import BarChart from './barChart'
+import React from "react";
+import BarChart from "./BarChart";
 
-const Main = () => {
+function Main() {
   return (
     <article className="bg-very-light-grey p3 flex-auto overflow-auto">
       <h1 className="regular darkgray line-height-1 mb3">Energy consumption</h1>
       <section className="mb3">
         <button
+          type="button"
           className="
                 h5
                 inline-block
