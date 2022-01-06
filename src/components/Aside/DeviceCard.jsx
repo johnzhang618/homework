@@ -1,3 +1,5 @@
+import React from 'react';
+
 function DeviceCard(props) {
   return (
     <div className="shadow-2 roundedMore bg-super-light-grey mb1">

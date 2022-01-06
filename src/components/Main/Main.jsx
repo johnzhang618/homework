@@ -1,4 +1,5 @@
-import BarChart from "./BarChart";
+import React from 'react';
+import BarChart from './BarChart';
 
 function Main() {
   return (
@@ -6,6 +7,7 @@ function Main() {
       <h1 className="regular darkgray line-height-1 mb3">Energy consumption</h1>
       <section className="mb3">
         <button
+          type="button"
           className="
                 h5
                 inline-block
