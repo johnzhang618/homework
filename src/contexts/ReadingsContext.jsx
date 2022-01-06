@@ -1,13 +1,12 @@
 import React, { createContext, useReducer, useEffect } from 'react';
-import { readingsReducer } from '../reducers/readingsReducer';
-import { getReadings } from '../services/readings';
+import readingsReducer from '../reducers/readingsReducer';
+import getReadings from '../services/readings';
 
 export const ReadingsContext = createContext();
 
 function ReadingsContextProvider(props) {
   const [chartState, dispatch] = useReducer(readingsReducer, [], () => {
-    const
-      localData = localStorage.getItem('readings');
+    const localData = localStorage.getItem('readings');
     const range = 30;
     const unit = 'daily';
     return {
