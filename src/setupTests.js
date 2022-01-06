@@ -2,22 +2,25 @@
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
-import "@testing-library/jest-dom";
+import '@testing-library/jest-dom';
 
-expect.extend({
-  toBeWithinRange(received, floor, ceiling) {
-    const pass = received >= floor && received <= ceiling;
-    if (pass) {
-      return {
-        message: () =>
-          `expected ${received} not to be within range ${floor} - ${ceiling}`,
-        pass: true
-      };
+expect.extend(
+    {
+        toBeWithinRange(received, floor, ceiling) {
+            const pass = received >= floor && received <= ceiling;
+            if (pass) {
+                return {
+                    message: () =>
+                        `expected ${received} not to be within range ${floor} - ${ceiling}`,
+                    pass: true,
+                };
+            } else {
+                return {
+                    message: () =>
+                        `expected ${received} to be within range ${floor} - ${ceiling}`,
+                    pass: false,
+                };
+            }
+        },
     }
-    return {
-      message: () =>
-        `expected ${received} to be within range ${floor} - ${ceiling}`,
-      pass: false
-    };
-  }
-});
+);
