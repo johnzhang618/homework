@@ -1,15 +1,22 @@
 import React from 'react';
 
 function DeviceCard(props) {
+  const { data } = props;
   return (
     <div className="shadow-2 roundedMore bg-super-light-grey mb1">
-      <p className="darkgray pl2 pt1 pb1">{props.data.name}</p>
+      <p className="darkgray pl2 pt1 pb1">{data.name}</p>
       <p className="h5 darkgray bold pl2 pb1 pt1 bg-very-light-grey">
-        {props.data.value}
+        {data.value}
         kW
       </p>
     </div>
   );
 }
-
+DeviceCard.propTypes = {
+  data: {
+    name: String,
+    value: String,
+  },
+};
+DeviceCard.defaultProps = { data: {} };
 export default DeviceCard;

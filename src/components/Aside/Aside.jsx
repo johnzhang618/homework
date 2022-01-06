@@ -10,14 +10,14 @@ function Aside() {
       {
           overview.gridState
           // eslint-disable-next-line react/no-array-index-key
-          && overview.gridState.map((iterm, k) => <OverviewCard key={k} data={iterm} />)
+          && overview.gridState.map((item, k) => <OverviewCard key={k} data={item} />)
       }
       <section className="h5 darkgray mb2">
         <h4 className="h4 mb1">Your devices:</h4>
         {
           overview.devices
           // eslint-disable-next-line react/no-array-index-key
-          && overview.devices.map((iterm, k) => <DeviceCard key={k} data={iterm} />)
+          && overview.devices.map((item, k) => <DeviceCard key={k} data={item} />)
         }
       </section>
     </aside>
