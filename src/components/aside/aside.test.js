@@ -1,12 +1,13 @@
-import React from "react";
-import { render, unmountComponentAtNode } from "react-dom";
-import { act } from "react-dom/test-utils";
+/* eslint-disable no-undef */
+// import React from 'react';
+// import { render, unmountComponentAtNode } from 'react-dom';
+// import { act } from 'react-dom/test-utils';
 
-import Aside from "./aside";
+// import Aside from './aside';
 
 let container = null;
 beforeEach(() => {
-  container = document.createElement("div");
+  container = document.createElement('div');
   document.body.appendChild(container);
 });
 
@@ -16,7 +17,7 @@ afterEach(() => {
   container = null;
 });
 
-it("render", () => {
+it('render', () => {
 //   act(() => {
 //     render(<Aside />, container);
 //   });

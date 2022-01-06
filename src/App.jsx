@@ -1,10 +1,10 @@
 import './basscss.css';
-import Aside from './components/aside/aside'
-import Main from './components/main/main'
-import OverviewContextProvider from './contexts/overviewContext';
-import ReadingsContextProvider from './contexts/readingsContext';
+import Aside from './components/Aside/Aside';
+import Main from './components/Main/Main';
+import OverviewContextProvider from './contexts/OverviewContext';
+import ReadingsContextProvider from './contexts/ReadingsContext';
 
-const App = () => {
+function App() {
   return (
     <div className="App background shadow-2 flex overflow-hidden">
       <OverviewContextProvider>
