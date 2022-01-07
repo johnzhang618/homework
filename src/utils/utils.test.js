@@ -128,10 +128,62 @@ describe('#arraySortByTime', () => {
 });
 
 describe('#chart zeroPadding', () => {
-  it('should format unit label', () => {
-    expect(zeroPadding(8)).toBe('08');
-    expect(zeroPadding(0)).toBe('00');
-    expect(zeroPadding(11)).toBe('11');
-    expect(zeroPadding(10)).toBe('10');
+  describe('when real number params', () => {
+    it('should return a string with zero padding', () => {
+      // arrange
+      const cases = [...new Array(10)].map((_, index) => ({
+        param: index,
+        result: `0${index}`,
+      }));
+
+      // act
+      const result = cases.map(({ param }) => zeroPadding(param));
+
+      // assert
+      result.forEach((item, index) => expect(item).toBe(cases[index].result));
+    });
+
+    it('should return a string same with param', () => {
+      // arrange
+      const cases = [...new Array(99)].map((_, index) => ({
+        param: index + 10,
+        result: `${index + 10}`,
+      }));
+
+      // act
+      const result = cases.map(({ param }) => zeroPadding(param));
+
+      // assert
+      result.forEach((item, index) => expect(item).toBe(cases[index].result));
+    });
+  });
+
+  describe('when non real number params', () => {
+    it('should return ""', () => {
+      // arrange
+      const casesFloat = [...new Array(99)].map((_, index) => Math.random() + index);
+      const casesNegative = [...new Array(99)].map((_, index) => 0 - 1 - index);
+
+      // act
+      const resultFloat = casesFloat.map((item) => zeroPadding(item));
+      const resultNegative = casesNegative.map((item) => zeroPadding(item));
+
+      // assert
+      resultFloat.forEach((item) => expect(item).toBe(''));
+      resultNegative.forEach((item) => expect(item).toBe(''));
+    });
+  });
+
+  describe('when NaN params', () => {
+    it('should return ""', () => {
+      // arrange
+      const cases = ['0', '10', 'a', { 1: 2 }, [0], null, undefined, true, false];
+
+      // act
+      const result = cases.map((item) => zeroPadding(item));
+
+      // assert
+      result.forEach((item) => expect(item).toBe(''));
+    });
   });
 });
