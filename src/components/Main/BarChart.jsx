@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -87,7 +87,12 @@ const formatChartData = ({ labels, values }) => ({
 
 function BarChart() {
   const { chartState } = useContext(ReadingsContext);
-  const [chartData] = useState(formatChartData(formatReadings(chartState)));
+  const [chartData, setChartData] = useState(formatChartData(formatReadings(chartState)));
+
+  useEffect(() => {
+    setChartData(formatChartData(formatReadings(chartState)));
+  }, [chartState]);
+
   return (
     <section className="chartHeight mb3">
       <Bar options={options} data={chartData} />
