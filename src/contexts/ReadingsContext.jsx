@@ -1,4 +1,6 @@
-import React, { createContext, useReducer, useEffect } from 'react';
+import React, {
+  createContext, useReducer, useEffect, useMemo,
+} from 'react';
 import { readingsReducer } from '../reducers/readingsReducer';
 import { getReadings } from '../services/readings';
 
@@ -17,10 +19,10 @@ function ReadingsContextProvider(props) {
       readings: localData ? JSON.parse(localData) : [],
     };
   });
+  const chartMemo = useMemo(() => ({ chartState, dispatch }), [chartState]);
 
   useEffect(() => {
     const fetchData = async () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       const queryData = await getReadings();
       dispatch({
         type: 'UPDATE_READINGS',
@@ -32,8 +34,7 @@ function ReadingsContextProvider(props) {
   }, []);
 
   return (
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <ReadingsContext.Provider value={{ chartState, dispatch }}>
+    <ReadingsContext.Provider value={chartMemo}>
       {children}
     </ReadingsContext.Provider>
   );

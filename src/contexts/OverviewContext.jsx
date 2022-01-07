@@ -1,4 +1,6 @@
-import React, { createContext, useReducer, useEffect } from 'react';
+import React, {
+  createContext, useReducer, useEffect, useMemo,
+} from 'react';
 import { overviewReducer } from '../reducers/overviewReducer';
 import { getOverviewData } from '../services/overview';
 
@@ -11,10 +13,10 @@ function OverviewContextProvider(props) {
     const localData = localStorage.getItem('overview');
     return localData ? JSON.parse(localData) : [];
   });
+  const overviewMemo = useMemo(() => ({ overview, dispatch }), [overview]);
 
   useEffect(() => {
     const fetchData = async () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       const queryData = await getOverviewData();
       dispatch({
         type: 'UPDATE_OVERVIEW',
@@ -25,8 +27,7 @@ function OverviewContextProvider(props) {
     fetchData();
   }, []);
   return (
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <OverviewContext.Provider value={{ overview, dispatch }}>
+    <OverviewContext.Provider value={overviewMemo}>
       {children}
     </OverviewContext.Provider>
   );
