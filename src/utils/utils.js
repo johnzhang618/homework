@@ -1,4 +1,7 @@
-export const zeroPadding = (value) => (value < 10 ? `0${value}` : `${value}`);
+export const zeroPadding = (value) => {
+  if (typeof value !== 'number' || value % 1 !== 0 || value < 0) return '';
+  return value < 10 ? `0${value}` : `${value}`;
+};
 
 export const arraySortByTime = (readings) => [...readings].sort(
   (readingA, readingB) => readingA.time - readingB.time,
