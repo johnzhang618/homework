@@ -40,30 +40,23 @@ export const fakeData = {
   ],
 };
 
-const randomOverview = new Promise((resolve) => {
-  const
-    oneDay = 1000 * 60 * 60 * 24;
-  const current = ((Date.parse(new Date()) / 1000) % oneDay) / oneDay;
+const randomGridValue = (current) => (Math.random() * current * 4 + 0.5).toFixed(1);
+const randomDeviceValue = (current) => ((Math.random() * current) / 5 + 0.05).toFixed(4);
+
+// 模拟接口请求
+export const getOverviewData = () => new Promise((resolve) => {
+  const current = (new Date()).getHours() / 24;
   const result = {
     gridState: [...new Array(fakeData.gridState.length)].map((_, index) => ({
       icon: fakeData.gridState[index].icon,
       term: fakeData.gridState[index].term,
-      value: (Math.random() * current * 4 + 0.5).toFixed(1),
+      value: randomGridValue(current),
     })),
     devices: [...new Array(fakeData.devices.length)].map((_, index) => ({
       name: fakeData.devices[index].name,
-      value: ((Math.random() * current) / 5 + 0.05).toFixed(4),
+      value: randomDeviceValue(current),
     })),
   };
   setTimeout(() => resolve(result), 500);
 });
-
-// 模拟接口请求
-const getOverviewData = async () => {
-  let overview;
-  await randomOverview.then((res) => {
-    overview = res;
-  });
-  return overview;
-};
 export default { getOverviewData };
