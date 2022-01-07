@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 
 function DeviceCard(props) {
   const { data } = props;
@@ -13,10 +14,9 @@ function DeviceCard(props) {
   );
 }
 DeviceCard.propTypes = {
-  data: {
-    name: String,
-    value: String,
-  },
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+  }).isRequired,
 };
-DeviceCard.defaultProps = { data: {} };
 export default DeviceCard;

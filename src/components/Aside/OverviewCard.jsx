@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 
 function OverviewCard({ data }) {
   return (
@@ -14,11 +15,10 @@ function OverviewCard({ data }) {
   );
 }
 OverviewCard.propTypes = {
-  data: {
-    icon: String,
-    value: String,
-    term: String,
-  },
+  data: PropTypes.shape({
+    icon: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    term: PropTypes.string.isRequired,
+  }).isRequired,
 };
-OverviewCard.defaultProps = { data: {} };
 export default OverviewCard;
