@@ -1,4 +1,4 @@
-const overviewReducer = (state, action) => {
+export const overviewReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_OVERVIEW':
       return action.overview;

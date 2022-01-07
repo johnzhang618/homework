@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, useEffect } from 'react';
-import readingsReducer from '../reducers/readingsReducer';
-import getReadings from '../services/readings';
+import { readingsReducer } from '../reducers/readingsReducer';
+import { getReadings } from '../services/readings';
 
 export const ReadingsContext = createContext();
 

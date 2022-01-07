@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import getReadings from './readings';
+import { getReadings } from './readings';
 
 describe('#getReadings', () => {
   it('should generate readings with specified length', async () => {

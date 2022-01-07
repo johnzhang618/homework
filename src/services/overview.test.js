@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import getOverviewData, { fakeData } from './overview';
+import { getOverviewData, fakeData } from './overview';
 
 describe('#getOverviewData', () => {
   it('should format as fakeData', async () => {

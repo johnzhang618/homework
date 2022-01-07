@@ -1,4 +1,4 @@
-const readingsReducer = (state, action) => {
+export const readingsReducer = (state, action) => {
   switch (action.type) {
     case 'UPDATE_ALL':
       return {

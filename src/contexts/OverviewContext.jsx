@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, useEffect } from 'react';
-import overviewReducer from '../reducers/overviewReducer';
-import getOverviewData from '../services/overview';
+import { overviewReducer } from '../reducers/overviewReducer';
+import { getOverviewData } from '../services/overview';
 
 export const OverviewContext = createContext();
 
