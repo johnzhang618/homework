@@ -3,7 +3,10 @@ import { getOverviewData, fakeData } from './overview';
 
 describe('#getOverviewData', () => {
   it('should format as fakeData', async () => {
-    const overview = (await getOverviewData());
+    // act
+    const overview = await getOverviewData();
+
+    // assert
     overview.gridState.forEach((item, index) => {
       expect(item.icon).toBe(fakeData.gridState[index].icon);
       expect(item.term).toBe(fakeData.gridState[index].term);
