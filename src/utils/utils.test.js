@@ -4,13 +4,68 @@ import {
 } from './utils';
 
 describe('#chart formatDateLabel', () => {
-  it('should format date label', () => {
-    expect(formatDateLabel(new Date(2021, 0, 1).getTime())).toBe('01/01');
-    expect(formatDateLabel(new Date(2021, 1, 1).getTime())).toBe('01/02');
-    expect(formatDateLabel(new Date(2021, 5, 1).getTime())).toBe('01/06');
-    expect(formatDateLabel(new Date(2021, 11, 1).getTime())).toBe('01/12');
-    expect(formatDateLabel(new Date(2021, 11, 25).getTime())).toBe('25/12');
-    expect(formatDateLabel(new Date(2021, 11, 31).getTime())).toBe('31/12');
+  describe('when month before Oct and days before 10', () => {
+    it('should format date label as dd/mm', () => {
+      // arrange
+      const cases = [...new Array(20)].map((_, index) => ({
+        param: new Date(2021, index % 9, (index % 9) + 1).getTime(),
+        result: `0${(index % 9) + 1}/0${(index % 9) + 1}`,
+      }));
+
+      // act
+      const result = cases.map(({ param }) => formatDateLabel(param));
+
+      // assert
+      result.forEach((item, index) => expect(item).toBe(cases[index].result));
+    });
+  });
+
+  describe('when month after Sept and days after 9', () => {
+    it('should format date label as dd/mm', () => {
+      // arrange
+      const cases = [...new Array(20)].map((_, index) => ({
+        param: new Date(2021, (index % 3) + 9, index + 10).getTime(),
+        result: `${index + 10}/${(index % 3) + 10}`,
+      }));
+
+      // act
+      const result = cases.map(({ param }) => formatDateLabel(param));
+
+      // assert
+      result.forEach((item, index) => expect(item).toBe(cases[index].result));
+    });
+  });
+
+  describe('when month after Sept and days before 10', () => {
+    it('should format date label as dd/mm', () => {
+      // arrange
+      const cases = [...new Array(20)].map((_, index) => ({
+        param: new Date(2021, (index % 3) + 9, (index % 9) + 1).getTime(),
+        result: `0${(index % 9) + 1}/${(index % 3) + 10}`,
+      }));
+
+      // act
+      const result = cases.map(({ param }) => formatDateLabel(param));
+
+      // assert
+      result.forEach((item, index) => expect(item).toBe(cases[index].result));
+    });
+  });
+
+  describe('when month before Oct and days after 9', () => {
+    it('should format date label as dd/mm', () => {
+      // arrange Feb 29, 2021 will return as 03/01
+      const cases = [...new Array(19)].map((_, index) => ({
+        param: new Date(2021, index % 9, index + 10).getTime(),
+        result: `${index + 10}/0${(index % 9) + 1}`,
+      }));
+
+      // act
+      const result = cases.map(({ param }) => formatDateLabel(param));
+
+      // assert
+      result.forEach((item, index) => expect(item).toBe(cases[index].result));
+    });
   });
 });
 
