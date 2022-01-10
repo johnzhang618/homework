@@ -24,38 +24,29 @@ describe('#chart formatTimeLabel', () => {
 });
 
 describe('#groupByDay', () => {
-  it('should get readings grouped by day', async () => {
-    const readings = [
-      {
-        time: new Date(2021, 12, 17, 10, 24).getTime(),
-        value: 50,
-      },
-      {
-        time: new Date(2021, 12, 17, 9, 24).getTime(),
-        value: 40,
-      },
-      {
-        time: new Date(2021, 12, 16, 10, 34).getTime(),
-        value: 35,
-      },
-      {
-        time: new Date(2021, 12, 15, 11, 34).getTime(),
-        value: 25,
-      },
-    ];
+  it('should get readings grouped by day', () => {
+    // arrange
+    const cases = {};
+    const readings = [...new Array(15)].map((_, index) => {
+      const time = new Date(2021, index % 9, 11, index, index).getTime();
+      const value = index * Math.ceil(Math.random() * 10);
+      const date = new Date(2021, index % 9, 11).getTime();
 
+      if (!cases[date]) cases[date] = value; else cases[date] += value;
+
+      return {
+        time,
+        value,
+      };
+    });
+    const { length } = Object.getOwnPropertyNames(cases);
+
+    // act
     const groupedReadings = groupByDay(readings, 'daily');
-    expect(groupedReadings).toHaveLength(3);
-    expect(
-      groupedReadings.find(
-        (reading) => reading.time === new Date(2021, 12, 17).getTime(),
-      ).value,
-    ).toBe(90);
-    expect(
-      groupedReadings.find(
-        (reading) => reading.time === new Date(2021, 12, 16).getTime(),
-      ).value,
-    ).toBe(35);
+
+    // assert
+    expect(groupedReadings.length).toBe(length);
+    groupedReadings.forEach((item) => expect(item.value).toBe(cases[item.time]));
   });
 });
 
