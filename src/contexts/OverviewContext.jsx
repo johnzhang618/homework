@@ -1,13 +1,13 @@
 import React, {
   createContext, useReducer, useEffect, useMemo,
 } from 'react';
+import { PropTypes } from 'prop-types';
 import { overviewReducer } from '../reducers/overviewReducer';
 import { getOverviewData } from '../services/overview';
 
 export const OverviewContext = createContext();
 
 function OverviewContextProvider(props) {
-  // eslint-disable-next-line react/prop-types
   const { children } = props;
   const [overview, dispatch] = useReducer(overviewReducer, [], () => {
     const localData = localStorage.getItem('overview');
@@ -32,5 +32,7 @@ function OverviewContextProvider(props) {
     </OverviewContext.Provider>
   );
 }
-
+OverviewContextProvider.propTypes = {
+  children: PropTypes.element.isRequired,
+};
 export default OverviewContextProvider;

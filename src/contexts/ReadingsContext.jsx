@@ -1,13 +1,13 @@
 import React, {
   createContext, useReducer, useEffect, useMemo,
 } from 'react';
+import { PropTypes } from 'prop-types';
 import { readingsReducer } from '../reducers/readingsReducer';
 import { getReadings } from '../services/readings';
 
 export const ReadingsContext = createContext();
 
 function ReadingsContextProvider(props) {
-  // eslint-disable-next-line react/prop-types
   const { children } = props;
   const [chartState, dispatch] = useReducer(readingsReducer, [], () => {
     const localData = localStorage.getItem('readings');
@@ -39,5 +39,7 @@ function ReadingsContextProvider(props) {
     </ReadingsContext.Provider>
   );
 }
-
+ReadingsContextProvider.propTypes = {
+  children: PropTypes.element.isRequired,
+};
 export default ReadingsContextProvider;
