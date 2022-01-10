@@ -48,11 +48,13 @@ export const getOverviewData = () => new Promise((resolve) => {
   const current = (new Date()).getHours() / 24;
   const result = {
     gridState: [...new Array(fakeData.gridState.length)].map((_, index) => ({
+      id: index,
       icon: fakeData.gridState[index].icon,
       term: fakeData.gridState[index].term,
       value: randomGridValue(current),
     })),
     devices: [...new Array(fakeData.devices.length)].map((_, index) => ({
+      id: index,
       name: fakeData.devices[index].name,
       value: randomDeviceValue(current),
     })),

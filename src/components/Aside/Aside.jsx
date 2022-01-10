@@ -8,16 +8,14 @@ function Aside() {
   return (
     <aside className="p3 menuWidth overflow-auto">
       {
-          overview.gridState
-          // eslint-disable-next-line react/no-array-index-key
-          && overview.gridState.map((item, k) => <OverviewCard key={k} data={item} />)
+        overview.gridState
+        && overview.gridState.map((item) => <OverviewCard key={item.id} data={item} />)
       }
       <section className="h5 darkgray mb2">
         <h4 className="h4 mb1">Your devices:</h4>
         {
           overview.devices
-          // eslint-disable-next-line react/no-array-index-key
-          && overview.devices.map((item, k) => <DeviceCard key={k} data={item} />)
+          && overview.devices.map((item) => <DeviceCard key={item.id} data={item} />)
         }
       </section>
     </aside>
