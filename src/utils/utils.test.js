@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import {
   zeroPadding, formatDateLabel, formatTimeLabel, arraySortByTime, groupByDay,
 } from './utils';

@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { overviewReducer } from './overviewReducer';
 import { fakeData, getOverviewData } from '../services/overview';
 

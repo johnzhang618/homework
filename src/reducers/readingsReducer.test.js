@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { readingsReducer } from './readingsReducer';
 
 describe('#overviewReducer', () => {

@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { getOverviewData, fakeData } from './overview';
 
 describe('#getOverviewData', () => {
