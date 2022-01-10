@@ -15,11 +15,36 @@ describe('#chart formatDateLabel', () => {
 });
 
 describe('#chart formatTimeLabel', () => {
-  it('should format time label', () => {
-    expect(formatTimeLabel(new Date(2021, 11, 31, 11).getTime())).toBe('11:00');
-    expect(formatTimeLabel(new Date(2021, 11, 31, 12).getTime())).toBe('12:00');
-    expect(formatTimeLabel(new Date(2021, 11, 31, 9).getTime())).toBe('09:00');
-    expect(formatTimeLabel(new Date(2021, 11, 31, 0).getTime())).toBe('00:00');
+  describe('when hours before 10', () => {
+    it('should format time label as hh:00', () => {
+      // arrange
+      const cases = [...new Array(60)].map((_, index) => ({
+        param: new Date(2022, 0, 9, index % 10, index).getTime(),
+        result: `0${index % 10}:00`,
+      }));
+
+      // act
+      const result = cases.map(({ param }) => formatTimeLabel(param));
+
+      // assert
+      result.forEach((item, index) => expect(item).toBe(cases[index].result));
+    });
+  });
+
+  describe('when hours after 9', () => {
+    it('should format time label as hh:00', () => {
+      // arrange
+      const cases = [...new Array(60)].map((_, index) => ({
+        param: new Date(2022, 0, 9, (index % 13) + 10, index).getTime(),
+        result: `${(index % 13) + 10}:00`,
+      }));
+
+      // act
+      const result = cases.map(({ param }) => formatTimeLabel(param));
+
+      // assert
+      result.forEach((item, index) => expect(item).toBe(cases[index].result));
+    });
   });
 });
 
