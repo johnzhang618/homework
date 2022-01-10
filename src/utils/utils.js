@@ -8,23 +8,20 @@ export const arraySortByTime = (readings) => [...readings].sort(
 );
 
 export const formatDateLabel = (timestamp) => {
-  const
-    date = new Date(timestamp);
+  const date = new Date(timestamp);
   const month = date.getMonth();
   const day = date.getDate();
   return `${zeroPadding(day)}/${zeroPadding(month + 1)}`;
 };
 
 export const formatTimeLabel = (timestamp) => {
-  const
-    date = new Date(timestamp);
+  const date = new Date(timestamp);
   const hour = date.getHours();
   return `${zeroPadding(hour)}:00`;
 };
 
 export const groupByDay = (readings) => {
-  // eslint-disable-next-line prefer-const
-  let groupedByDay = [];
+  const groupedByDay = [];
   readings.forEach(({ time, value }) => {
     const readingDate = new Date(time);
     const day = new Date(
