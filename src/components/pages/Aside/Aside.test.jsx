@@ -3,7 +3,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 
 import Aside from './Aside';
-import OverviewContextProvider from '../../contexts/OverviewContext';
+import OverviewContextProvider from '../../../contexts/OverviewContext';
 
 let container = null;
 beforeEach(() => {

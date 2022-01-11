@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { OverviewContext } from '../../contexts/OverviewContext';
-import DeviceCard from './DeviceCard';
-import OverviewCard from './OverviewCard';
+import { OverviewContext } from '../../../contexts/OverviewContext';
+import { DeviceCard, OverviewCard } from '../../molecules';
+import { Heading } from '../../atoms';
 
 function Aside() {
   const { overview } = useContext(OverviewContext);
@@ -12,6 +12,7 @@ function Aside() {
         && overview.gridState.map((item) => <OverviewCard key={item.id} data={item} />)
       }
       <section className="h5 darkgray mb2">
+        <Heading HeadingType="h4" className="h4 mb1">Your devices:</Heading>
         <h4 className="h4 mb1">Your devices:</h4>
         {
           overview.devices
