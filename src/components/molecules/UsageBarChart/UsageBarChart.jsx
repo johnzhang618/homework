@@ -70,7 +70,7 @@ const format = (chartState) => {
 function UsageBarChart() {
   return (
     <section className="chartHeight mb3">
-      <BarChart options={options} format={format} />
+      <BarChart options={options} fontSize="10px" format={format} />
     </section>
   );
 }

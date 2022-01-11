@@ -10,13 +10,15 @@ import {
 import { Bar } from 'react-chartjs-2';
 import { ReadingsContext } from '../../../contexts/ReadingsContext';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
-ChartJS.defaults.font.size = '10px';
-
 function BarChart({
   options,
   format,
+  fontSize,
 }) {
+  // TODO: need more options for extensibility in ChartJS register
+  ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
+  ChartJS.defaults.font.size = fontSize;
+
   const { chartState } = useContext(ReadingsContext);
   const [chartData, setChartData] = useState(format(chartState));
 
@@ -29,8 +31,9 @@ function BarChart({
   );
 }
 BarChart.propTypes = {
-  options: PropTypes.instanceOf().isRequired,
+  options: PropTypes.objectOf(PropTypes.any).isRequired,
   format: PropTypes.func.isRequired,
+  fontSize: PropTypes.string.isRequired,
 };
 
 export default BarChart;
