@@ -13,7 +13,6 @@ function Aside() {
       }
       <section className="h5 darkgray mb2">
         <Heading HeadingType="h4" className="h4 mb1">Your devices:</Heading>
-        <h4 className="h4 mb1">Your devices:</h4>
         {
           overview.devices
           && overview.devices.map((item) => <DeviceCard key={item.id} data={item} />)

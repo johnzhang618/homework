@@ -1,5 +1,4 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
 import { Button } from '../../atoms';
 
 function ChartController() {
@@ -27,11 +26,5 @@ function ChartController() {
     </section>
   );
 }
-ChartController.propTypes = {
-  data: PropTypes.shape({
-    icon: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
-    term: PropTypes.string.isRequired,
-  }).isRequired,
-};
+
 export default ChartController;
