@@ -1,9 +1,8 @@
-import './basscss.css';
 import React from 'react';
-import Aside from './components/Aside/Aside';
-import Main from './components/Main/Main';
-import OverviewContextProvider from './contexts/OverviewContext';
-import ReadingsContextProvider from './contexts/ReadingsContext';
+import Aside from './pages/Aside/Aside';
+import Main from './pages/Main/Main';
+import OverviewContextProvider from '../contexts/OverviewContext';
+import ReadingsContextProvider from '../contexts/ReadingsContext';
 
 function App() {
   return (
