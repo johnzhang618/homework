@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { BarChart } from '../../atoms';
 import {
   groupByDay,
@@ -6,6 +6,7 @@ import {
   formatTimeLabel,
   arraySortByTime,
 } from '../../../utils/utils';
+import { ReadingsContext } from '../../../contexts/ReadingsContext';
 
 const options = {
   scales: {
@@ -68,9 +69,16 @@ const format = (chartState) => {
 };
 
 function UsageBarChart() {
+  const { chartState } = useContext(ReadingsContext);
+  const [chartData, setChartData] = useState(format(chartState));
+
+  useEffect(() => {
+    setChartData(format(chartState));
+  }, [chartState]);
+
   return (
     <section className="chartHeight mb3">
-      <BarChart options={options} fontSize="10px" format={format} />
+      <BarChart options={options} fontSize="10px" data={chartData} />
     </section>
   );
 }
