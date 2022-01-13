@@ -1,33 +1,21 @@
-import React, { useContext, useState, useEffect } from 'react';
-import {
-  Button,
-} from '../../atoms';
-import { getDiffBtwDays, getLastSecondInDay } from '../../../utils/utils';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { Button } from '../../atoms';
+import { getLastSecondInDay } from '../../../utils/utils';
 import { DateInputs } from '../../molecules';
-import { ReadingsContext } from '../../../contexts/ReadingsContext';
-import { getReadings } from '../../../services/readings';
 
-function ChartController() {
-  const {
-    chartState,
-    dispatch,
-  } = useContext(ReadingsContext);
-  const [startDate, setStartDate] = useState(chartState.start);
-  const [endDateFromChild, setEndDateFromChild] = useState(chartState.end);
-  const [endDate, setEndDate] = useState(chartState.end);
+function ChartController({
+  onChange,
+  value,
+}) {
+  const [startDate, setStartDate] = useState(value.start);
+  const [endDateFromChild, setEndDateFromChild] = useState(value.end);
+  const [endDate, setEndDate] = useState(value.end);
 
-  const onSubmit = async () => {
-    const range = getDiffBtwDays(startDate, endDate);
-    const readings = await getReadings(endDate, range * 24);
-    dispatch({
-      type: 'UPDATE_ALL',
-      start: startDate,
-      end: endDate,
-      unit: chartState.unit,
-      range,
-      readings,
-    });
-  };
+  const onSubmit = () => onChange({
+    start: startDate,
+    end: endDate,
+  });
 
   useEffect(() => {
     const now = Date.now();
@@ -92,5 +80,8 @@ function ChartController() {
     </section>
   );
 }
-
+ChartController.propTypes = {
+  value: PropTypes.objectOf(PropTypes.number).isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 export default ChartController;

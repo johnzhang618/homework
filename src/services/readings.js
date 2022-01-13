@@ -1,9 +1,15 @@
-export const getReadings = async (end, length = 1200) => {
-  const current = !end ? Date.now() : end;
+export const getReadings = async (start, end) => {
   const hour = 1000 * 60 * 60;
-  return [...new Array(length)].map((_, index) => ({
-    time: current - index * hour,
-    value: Math.random() * 0.7 + 0.4,
-  }));
+  const readings = [];
+  let i = 0;
+  do {
+    readings.push({
+      time: end - (hour * i),
+      value: Math.random() * 0.7 + 0.4,
+    });
+    i += 1;
+  }
+  while (end - (hour * i) > start);
+  return readings;
 };
 export default { getReadings };

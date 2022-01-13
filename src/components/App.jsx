@@ -2,7 +2,7 @@ import React from 'react';
 import Aside from './pages/Aside/Aside';
 import Main from './pages/Main/Main';
 import OverviewContextProvider from '../contexts/OverviewContext';
-import ReadingsContextProvider from '../contexts/ReadingsContext';
+// import ReadingsContextProvider from '../contexts/ReadingsContext';
 
 function App() {
   return (
@@ -10,9 +10,9 @@ function App() {
       <OverviewContextProvider>
         <Aside />
       </OverviewContextProvider>
-      <ReadingsContextProvider>
-        <Main />
-      </ReadingsContextProvider>
+      {/* <ReadingsContextProvider> */}
+      <Main />
+      {/* </ReadingsContextProvider> */}
 
     </div>
   );
