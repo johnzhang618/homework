@@ -82,6 +82,8 @@ export const isDateInRange = (tmp, range) => {
   return true;
 };
 
+export const getDiffBtwDays = (start, end) => Math.ceil((end - start) / 1000 / 60 / 60 / 24);
+
 export default {
   groupByDay,
   formatTimeLabel,

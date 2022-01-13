@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
 import {
   Button,
-  // Form,
 } from '../../atoms';
-// import { timestampToDate } from '../../../utils/utils';
+import { getDiffBtwDays } from '../../../utils/utils';
 import { DateInputs } from '../../molecules';
 import { ReadingsContext } from '../../../contexts/ReadingsContext';
+import { getReadings } from '../../../services/readings';
 
 function ChartController() {
   const {
@@ -19,13 +19,16 @@ function ChartController() {
     range: chartState.range,
   });
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
+    const range = getDiffBtwDays(dates.start, dates.end);
+    const readings = await getReadings(dates.end, range * 24);
     dispatch({
-      type: 'UPDATE_STATE',
+      type: 'UPDATE_ALL',
       start: dates.start,
       end: dates.end,
       unit: dates.unit,
-      range: dates.range,
+      range,
+      readings,
     });
   };
 
