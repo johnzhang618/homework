@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import {
   Button,
 } from '../../atoms';
-import { getDiffBtwDays } from '../../../utils/utils';
+import { getDiffBtwDays, getLastSecondInDay } from '../../../utils/utils';
 import { DateInputs } from '../../molecules';
 import { ReadingsContext } from '../../../contexts/ReadingsContext';
 import { getReadings } from '../../../services/readings';
@@ -33,6 +33,8 @@ function ChartController() {
   };
 
   const updateState = (tmp, type) => {
+    const now = Date.now();
+    const lastSecond = getLastSecondInDay(tmp);
     switch (type) {
       case 'start':
         setDates({
@@ -45,7 +47,7 @@ function ChartController() {
       case 'end':
         setDates({
           start: dates.start,
-          end: tmp,
+          end: now > lastSecond ? lastSecond : now,
           unit: dates.unit,
           range: dates.range,
         });

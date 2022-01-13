@@ -84,6 +84,18 @@ export const isDateInRange = (tmp, range) => {
 
 export const getDiffBtwDays = (start, end) => Math.ceil((end - start) / 1000 / 60 / 60 / 24);
 
+export const getLastSecondInDay = (tmp) => {
+  const date = new Date(tmp);
+  return new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+    23,
+    59,
+    59,
+  ).getTime();
+};
+
 export default {
   groupByDay,
   formatTimeLabel,
