@@ -1,6 +1,7 @@
 import React from 'react';
 import { Heading } from '../../atoms';
-import { UsageBarChart, ChartController } from '../../molecules';
+import { UsageBarChart } from '../../molecules';
+import ChartController from '../../organisms/ChartController/ChartController';
 
 function Main() {
   return (

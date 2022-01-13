@@ -49,6 +49,39 @@ export const groupByDay = (readings) => {
     value,
   }));
 };
+
+export const timestampToDate = (tmp) => {
+  const date = new Date(tmp);
+  return {
+    year: `${date.getFullYear()}`,
+    month: zeroPadding(date.getMonth() + 1),
+    date: zeroPadding(date.getDate()),
+  };
+};
+
+export const intStringToInt = (intString) => {
+  let result = NaN;
+
+  if (typeof intString !== 'string') return result;
+
+  result = 0 + intString;
+
+  if (result % 1 !== 0) return NaN;
+
+  return result;
+};
+
+export const isDateInRange = (tmp, range) => {
+  const today = new Date();
+  let earliest = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+  earliest = earliest.setDate(earliest.getDate() - range);
+
+  if (new Date(earliest).getTime() > tmp || new Date(today).getTime() < tmp) return false;
+
+  return true;
+};
+
 export default {
   groupByDay,
   formatTimeLabel,

@@ -12,15 +12,19 @@ function ReadingsContextProvider(props) {
   const [chartState, dispatch] = useReducer(readingsReducer, [], () => {
     const localData = localStorage.getItem('readings');
     const range = 30;
+    const today = new Date();
+    const end = today.getTime();
+    const start = today.setDate(today.getDate() - 29);
     const unit = 'daily';
     return {
+      start,
+      end,
       unit,
       range,
       readings: localData ? JSON.parse(localData) : [],
     };
   });
   const chartMemo = useMemo(() => ({ chartState, dispatch }), [chartState]);
-
   useEffect(() => {
     const fetchData = async () => {
       const queryData = await getReadings();
