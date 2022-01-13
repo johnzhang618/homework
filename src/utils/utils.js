@@ -55,7 +55,7 @@ export const timestampToDate = (tmp) => {
   return {
     year: `${date.getFullYear()}`,
     month: zeroPadding(date.getMonth() + 1),
-    date: zeroPadding(date.getDate()),
+    day: zeroPadding(date.getDate()),
   };
 };
 

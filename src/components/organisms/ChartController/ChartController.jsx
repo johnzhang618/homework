@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
   Button,
 } from '../../atoms';
@@ -12,49 +12,28 @@ function ChartController() {
     chartState,
     dispatch,
   } = useContext(ReadingsContext);
-  const [dates, setDates] = useState({
-    start: chartState.start,
-    end: chartState.end,
-    unit: chartState.unit,
-    range: chartState.range,
-  });
+  const [startDate, setStartDate] = useState(chartState.start);
+  const [endDateFromChild, setEndDateFromChild] = useState(chartState.end);
+  const [endDate, setEndDate] = useState(chartState.end);
 
   const onSubmit = async () => {
-    const range = getDiffBtwDays(dates.start, dates.end);
-    const readings = await getReadings(dates.end, range * 24);
+    const range = getDiffBtwDays(startDate, endDate);
+    const readings = await getReadings(endDate, range * 24);
     dispatch({
       type: 'UPDATE_ALL',
-      start: dates.start,
-      end: dates.end,
-      unit: dates.unit,
+      start: startDate,
+      end: endDate,
+      unit: chartState.unit,
       range,
       readings,
     });
   };
 
-  const updateState = (tmp, type) => {
+  useEffect(() => {
     const now = Date.now();
-    const lastSecond = getLastSecondInDay(tmp);
-    switch (type) {
-      case 'start':
-        setDates({
-          start: tmp,
-          end: dates.end,
-          unit: dates.unit,
-          range: dates.range,
-        });
-        break;
-      case 'end':
-        setDates({
-          start: dates.start,
-          end: now > lastSecond ? lastSecond : now,
-          unit: dates.unit,
-          range: dates.range,
-        });
-        break;
-      default:
-    }
-  };
+    const lastSecond = getLastSecondInDay(endDateFromChild);
+    setEndDate(now > lastSecond ? lastSecond : now);
+  }, [endDateFromChild]);
 
   return (
     <section className="mb3">
@@ -80,15 +59,13 @@ function ChartController() {
       </Button>
       <div className="inline col-right">
         <DateInputs
-          data={chartState.start}
-          dateType="start"
-          onUpdate={updateState}
+          originDateTmp={startDate}
+          onChange={setStartDate}
         />
         -
         <DateInputs
-          data={chartState.end}
-          dateType="end"
-          onUpdate={updateState}
+          originDateTmp={endDate}
+          onChange={setEndDateFromChild}
         />
         <Button
           tabIndex="-1"
