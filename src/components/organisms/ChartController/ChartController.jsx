@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import './ChartController.css';
 import { Button } from '../../atoms';
 import { getLastSecondInDay } from '../../../utils/utils';
 import { DateInputs } from '../../molecules';
@@ -11,11 +12,25 @@ function ChartController({
   const [startDate, setStartDate] = useState(value.start);
   const [endDateFromChild, setEndDateFromChild] = useState(value.end);
   const [endDate, setEndDate] = useState(value.end);
+  const [warning, setWarning] = useState();
 
-  const onSubmit = () => onChange({
-    start: startDate,
-    end: endDate,
-  });
+  const warn = async (text) => {
+    setWarning(text);
+    setTimeout(() => {
+      setWarning();
+    }, 1000 * 5);
+  };
+
+  const onSubmit = () => {
+    if (startDate > endDate) {
+      warn('Place check the input DATE: start date should less than end date!');
+      return;
+    }
+    onChange({
+      start: startDate,
+      end: endDate,
+    });
+  };
 
   useEffect(() => {
     const now = Date.now();
@@ -46,15 +61,17 @@ function ChartController({
         Last 30 days
       </Button>
       <div className="inline col-right">
-        <DateInputs
-          originDateTmp={startDate}
-          onChange={setStartDate}
-        />
-        -
-        <DateInputs
-          originDateTmp={endDate}
-          onChange={setEndDateFromChild}
-        />
+        <div className="container-input inline bg-white roundedMore p03 mr1 relative" warning={warning}>
+          <DateInputs
+            originDateTmp={startDate}
+            onChange={setStartDate}
+          />
+          -
+          <DateInputs
+            originDateTmp={endDate}
+            onChange={setEndDateFromChild}
+          />
+        </div>
         <Button
           tabIndex="-1"
           type="button"
