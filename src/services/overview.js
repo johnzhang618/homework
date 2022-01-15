@@ -61,4 +61,27 @@ export const getOverviewData = () => new Promise((resolve) => {
   };
   setTimeout(() => resolve(result), 500);
 });
+
+export const getGridState = () => new Promise((resolve) => {
+  const current = (new Date()).getHours() / 24;
+  const powerDraw = randomGridValue(current);
+  const fedGrid = randomGridValue(current);
+  const result = {
+    powerDraw,
+    fedGrid,
+    solarPower: (parseFloat(powerDraw) + parseFloat(fedGrid)).toFixed(1),
+  };
+  setTimeout(() => resolve(result), 500);
+});
+
+export const getDevicesStates = () => new Promise((resolve) => {
+  const current = (new Date()).getHours() / 24;
+  const result = [...new Array(fakeData.devices.length)].map((_, index) => ({
+    id: index,
+    name: fakeData.devices[index].name,
+    value: randomDeviceValue(current),
+  }));
+  setTimeout(() => resolve(result), 500);
+});
+
 export default { getOverviewData };
