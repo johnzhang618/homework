@@ -2,24 +2,14 @@ import React, { useState } from 'react';
 import { Heading } from '../../atoms';
 import { UsageBarChart } from '../../molecules';
 import ChartController from '../../organisms/ChartController/ChartController';
-
-const getNDaysAgoTmp = (n, current) => {
-  const date = new Date(current);
-  let nDaysAgo = new Date(
-    date.getFullYear(),
-    date.getMonth(),
-    date.getDate(),
-  );
-  nDaysAgo = nDaysAgo.setDate(nDaysAgo.getDate() - n);
-  return nDaysAgo;
-};
+import { getNDaysAgoTmp } from '../../../utils/utils';
 
 function Main() {
-  const nowTmp = Date.now();
+  const nowTmp = new Date();
   const originStart = getNDaysAgoTmp(29, nowTmp);
   const [state, setState] = useState({
     start: originStart,
-    end: nowTmp,
+    end: nowTmp.getTime(),
   });
 
   return (
