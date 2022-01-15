@@ -1,31 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import './ChartController.css';
-import { Button } from '../../atoms';
-import { getLastSecondInDay } from '../../../utils/utils';
-import { DateInputs } from '../../molecules';
+import {
+  Button,
+} from '../../atoms';
+import { getLastSecondInDay, getNDaysAgoTmp } from '../../../utils/utils';
+import { DateSelectors } from '../../molecules';
 
 function ChartController({
   onChange,
   value,
 }) {
+  const earliest = getNDaysAgoTmp(999, new Date());
   const [startDate, setStartDate] = useState(value.start);
   const [endDateFromChild, setEndDateFromChild] = useState(value.end);
   const [endDate, setEndDate] = useState(value.end);
-  const [warning, setWarning] = useState();
-
-  const warn = async (text) => {
-    setWarning(text);
-    setTimeout(() => {
-      setWarning();
-    }, 1000 * 5);
-  };
 
   const onSubmit = () => {
-    if (startDate > endDate) {
-      warn('Place check the input DATE: start date should less than end date!');
-      return;
-    }
     onChange({
       start: startDate,
       end: endDate,
@@ -61,15 +51,23 @@ function ChartController({
         Last 30 days
       </Button>
       <div className="inline col-right">
-        <div className="container-input inline bg-white roundedMore p03 mr1 relative" warning={warning}>
-          <DateInputs
-            originDateTmp={startDate}
-            onChange={setStartDate}
+        <div className="inline bg-white roundedMore p03 mr1">
+          <DateSelectors
+            dateRange={{
+              latestTmp: endDate,
+              earliestTmp: earliest,
+            }}
+            defaultTmp={startDate}
+            onUpdate={setStartDate}
           />
           -
-          <DateInputs
-            originDateTmp={endDate}
-            onChange={setEndDateFromChild}
+          <DateSelectors
+            dateRange={{
+              latestTmp: Date.now(),
+              earliestTmp: startDate,
+            }}
+            defaultTmp={endDate}
+            onUpdate={setEndDateFromChild}
           />
         </div>
         <Button

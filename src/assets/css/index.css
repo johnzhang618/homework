@@ -102,3 +102,29 @@ html {
 .border-grey {
   border: 1px solid rgb(225, 225, 225);
 }
+
+.warning-text-before::before {
+  position: absolute;
+  top: 2.1rem;
+  content: attr(warning);
+  font-size: 14px;
+  color: red;
+  background-color: rgba(200, 200, 200, .5);
+  border-radius: .2rem;
+  max-width: 10.3rem;
+  word-break: break-word;
+}
+
+.container-input input {
+  outline: none;
+  padding-left: .1rem;
+}
+
+.date-selector {
+  border: 0;
+  outline: none;
+  text-align: center;
+  padding: .3rem;
+  appearance: none;
+  background-color: transparent;
+}

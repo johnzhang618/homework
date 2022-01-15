@@ -96,6 +96,16 @@ export const getLastSecondInDay = (tmp) => {
   ).getTime();
 };
 
+export const getNDaysAgoTmp = (n, current) => {
+  let nDaysBefore = new Date(
+    current.getFullYear(),
+    current.getMonth(),
+    current.getDate(),
+  );
+  nDaysBefore = nDaysBefore.setDate(nDaysBefore.getDate() - n);
+  return nDaysBefore;
+};
+
 export default {
   groupByDay,
   formatTimeLabel,
