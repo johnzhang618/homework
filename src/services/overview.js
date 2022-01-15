@@ -43,25 +43,6 @@ export const fakeData = {
 const randomGridValue = (current) => (Math.random() * current * 4 + 0.5).toFixed(1);
 const randomDeviceValue = (current) => ((Math.random() * current) / 5 + 0.05).toFixed(4);
 
-// 模拟接口请求
-export const getOverviewData = () => new Promise((resolve) => {
-  const current = (new Date()).getHours() / 24;
-  const result = {
-    gridState: [...new Array(fakeData.gridState.length)].map((_, index) => ({
-      id: index,
-      icon: fakeData.gridState[index].icon,
-      term: fakeData.gridState[index].term,
-      value: randomGridValue(current),
-    })),
-    devices: [...new Array(fakeData.devices.length)].map((_, index) => ({
-      id: index,
-      name: fakeData.devices[index].name,
-      value: randomDeviceValue(current),
-    })),
-  };
-  setTimeout(() => resolve(result), 500);
-});
-
 export const getGridState = () => new Promise((resolve) => {
   const current = (new Date()).getHours() / 24;
   const powerDraw = randomGridValue(current);
@@ -84,4 +65,4 @@ export const getDevicesStates = () => new Promise((resolve) => {
   setTimeout(() => resolve(result), 500);
 });
 
-export default { getOverviewData };
+export default { getDevicesStates };
