@@ -2,28 +2,6 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { Paragraph } from '../../atoms';
 
-// const tagClassName = [
-//   'darkgray',
-//   'pl2',
-//   'pt1',
-//   'pb1',
-// ];
-// const valueClassName = [
-//   'h5',
-//   'darkgray',
-//   'bold',
-//   'pl2',
-//   'pt1',
-//   'pb1',
-//   'bg-very-light-grey',
-// ];
-// const divClassName = [
-//   'shadow-2',
-//   'roundedMore',
-//   'bg-super-light-grey',
-//   'mb1',
-// ];
-
 function DeviceCard({ data }) {
   return (
     <div className="shadow-2 roundedMore bg-super-light-grey mb1">

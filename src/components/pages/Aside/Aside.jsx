@@ -1,23 +1,11 @@
-import React, { useContext } from 'react';
-import { OverviewContext } from '../../../contexts/OverviewContext';
-import { DeviceCard, OverviewCard } from '../../molecules';
-import { Heading } from '../../atoms';
+import React from 'react';
+import { OverviewCards, DeviceCards } from '../../organisms';
 
 function Aside() {
-  const { overview } = useContext(OverviewContext);
   return (
     <aside className="p3 menuWidth overflow-auto">
-      {
-        overview.gridState
-        && overview.gridState.map((item) => <OverviewCard key={item.id} data={item} />)
-      }
-      <section className="h5 darkgray mb2">
-        <Heading HeadingType="h4" className="h4 mb1">Your devices:</Heading>
-        {
-          overview.devices
-          && overview.devices.map((item) => <DeviceCard key={item.id} data={item} />)
-        }
-      </section>
+      <OverviewCards />
+      <DeviceCards />
     </aside>
   );
 }
