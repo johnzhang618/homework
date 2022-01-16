@@ -23,7 +23,9 @@ jobs:
         node-version: '17.3.0'
 
     - name: Install dependencies
-      run: npm install
+      run: npm install -g serve
 
     - name: Run build
-      uses: npm build
+      uses: |
+        npm run build 
+        serve -s build
