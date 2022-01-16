@@ -1,12 +1,9 @@
-name: hw
+name: main
 
 on: 
   push:
     branches:
       - main
-
-env: 
-  TZ: Asia/Shanghai
 
 jobs:
   deploy:
@@ -15,13 +12,10 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
-
-    - name: My first step
-      uses: ./.github/workflows/main
+      uses: actions/checkout@v1
 
     - name: Setup node
-      uses: actions@v2
+      uses: actions@v1
       with: 
         node-version: '17.3.0'
 
