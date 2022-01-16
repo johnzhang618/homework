@@ -11,18 +11,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    - name: Setup node
-      uses: actions/setup-node@v2
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
       with: 
         node-version: '17.3.0'
 
     - name: Install dependencies
-      run: npm install -g serve
+      run: npm install
 
     - name: Run build
-      uses: |
-        npm run build 
-        serve -s build
+      uses: npm run build 
+    - uses: serve -s build
