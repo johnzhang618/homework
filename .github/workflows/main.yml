@@ -42,11 +42,7 @@ jobs:
     - name: Run Build
       run: npm run build 
 
-    - name: Deploy 🚀
-        env:
-          ACCESS_TOKEN: ${{ secrets.hw }}
-          BRANCH: github-pages
-          FOLDER: build
-          BUILD_SCRIPT: npm ci && npm run build
+    - name: Deploy
         run: |
-          echo $ACCESS_TOKEN $BRANCH $FOLDER $BUILD_SCRIPT
+          mkdir build
+          npm run build
