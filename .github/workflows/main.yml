@@ -40,6 +40,4 @@ jobs:
       run: npm install -g serve
 
     - name: Run Build
-      run: |
-        npm run build 
-        serve -s build
+      run: npm run build 
