@@ -17,6 +17,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
+    - name: My first step
+      uses: ./.github/workflows/main
+
     - name: Setup node
       uses: actions@v2
       with: 
