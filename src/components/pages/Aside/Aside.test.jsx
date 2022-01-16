@@ -3,7 +3,6 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 
 import Aside from './Aside';
-import OverviewContextProvider from '../../../contexts/OverviewContext';
 
 let container = null;
 beforeEach(() => {
@@ -20,11 +19,11 @@ afterEach(() => {
 it('render', () => {
   act(() => {
     render(
-      <OverviewContextProvider>
-        <Aside />
-      </OverviewContextProvider>,
+      <Aside />,
       container,
     );
   });
-  expect(container.textContent).toBe('Your devices:');
+  expect(container.textContent).toBe(
+    '⚡️ KWPower draw☀️️ KWSolar power production🔌️ KWFed into gridYour devices:',
+  );
 });

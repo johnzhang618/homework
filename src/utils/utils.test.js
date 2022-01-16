@@ -1,5 +1,10 @@
 import {
-  zeroPadding, formatDateLabel, formatTimeLabel, arraySortByTime, groupByDay,
+  zeroPadding,
+  formatDateLabel,
+  formatTimeLabel,
+  arraySortByTime,
+  groupByDay,
+  getLastSecondInDay,
 } from './utils';
 
 describe('#chart formatDateLabel', () => {
@@ -130,7 +135,7 @@ describe('#groupByDay', () => {
 });
 
 describe('#arraySortByTime', () => {
-  // arange
+  // arrange
   const readingsMap = {};
   const readings = [...new Array(60)].map((_, index) => {
     const item = {
@@ -219,5 +224,24 @@ describe('#chart zeroPadding', () => {
       // assert
       result.forEach((item) => expect(item).toBe(''));
     });
+  });
+});
+
+describe('#getLastSecondInDay', () => {
+  it('should return a tmp and the tmp could parse to time as 23:59:59', () => {
+    // arrange
+    const cases = Date.now();
+
+    // act
+    const tmp = getLastSecondInDay(cases);
+    const date = new Date(tmp);
+
+    // assert
+    expect(date.getFullYear()).toBe(new Date(cases).getFullYear());
+    expect(date.getMonth()).toBe(new Date(cases).getMonth());
+    expect(date.getDate()).toBe(new Date(cases).getDate());
+    expect(date.getHours()).toBe(23);
+    expect(date.getMinutes()).toBe(59);
+    expect(date.getSeconds()).toBe(59);
   });
 });

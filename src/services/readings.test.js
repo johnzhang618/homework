@@ -3,26 +3,23 @@ import { getReadings } from './readings';
 describe('#getReadings', () => {
   describe('when called by a param', () => {
     it('should generate readings with specified length', async () => {
-      // arange
-      const cases = [...new Array(9)].map((_, index) => index * Math.ceil(Math.random() * 100));
+      // arrange
+      const cases = [...new Array(2)].map((_, index) => {
+        const start = new Date(2022, 0, 1, 0).getTime();
+        const end = new Date(2022, 0, 1 * (1 + index), 23).getTime();
+        const diff = parseInt((end - start) / (1000 * 60 * 60), 10);
+        return {
+          param: [start, end],
+          expected: diff,
+        };
+      });
 
       // act
-      const result = cases.map((item) => getReadings(item));
+      const result = cases.map((item) => getReadings(...item.param));
 
       // assert
-      result.forEach((item, index) => item.then((res) => expect(res).toHaveLength(cases[index])));
-    });
-  });
-  describe('when called without params', () => {
-    // arange
-    const target = 1200;
-
-    it('should generate readings with default length', async () => {
-      // act
-      const result = await getReadings();
-
-      // assert
-      expect(result).toHaveLength(target);
+      // eslint-disable-next-line max-len
+      result.forEach((item, index) => item.then((res) => expect(res).toHaveLength(cases[index].expected)));
     });
 
     it('should generate readings with timestamps and random values', async () => {
@@ -37,8 +34,8 @@ describe('#getReadings', () => {
     });
 
     it('should generate readings by hours and ordered by time descending', async () => {
-      // arange
-      let current = 1200;
+      // arrange
+      let current = 0;
       const OneHourInMilliseconds = 60 * 60 * 1000;
 
       // act

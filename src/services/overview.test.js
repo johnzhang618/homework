@@ -1,18 +1,26 @@
-import { getOverviewData, fakeData } from './overview';
+import { getGridState, getDevicesStates, fakeData } from './overview';
 
-describe('#getOverviewData', () => {
-  it('should format as fakeData', async () => {
+describe('#getGridState', () => {
+  it('should not get incorrect data', async () => {
     // act
-    const overview = await getOverviewData();
+    const gridState = await getGridState();
 
     // assert
-    overview.gridState.forEach((item, index) => {
-      expect(item.icon).toBe(fakeData.gridState[index].icon);
-      expect(item.term).toBe(fakeData.gridState[index].term);
-      expect(typeof item.value).toBe('string');
-      expect(item.value.length).toBe(3);
+    Object.keys(gridState).forEach((key) => {
+      expect(typeof gridState[key]).toBe('string');
+      expect(typeof key).toBe('string');
+      expect(gridState[key].length).toBe(3);
     });
-    overview.devices.forEach((item, index) => {
+  });
+});
+
+describe('#getDevicesStates', () => {
+  it('should format as fakeData', async () => {
+    // act
+    const gridState = await getDevicesStates();
+
+    // assert
+    gridState.forEach((item, index) => {
       expect(item.name).toBe(fakeData.devices[index].name);
       expect(typeof item.value).toBe('string');
       expect(item.value.length).toBe(6);
