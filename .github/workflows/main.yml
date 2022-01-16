@@ -19,7 +19,8 @@ jobs:
 
     - name: Setup node
       uses: actions@v1
-      with: node-version: '17.3.0'
+      with: 
+        node-version: '17.3.0'
 
     - name: Install dependencies
       run: npm install
