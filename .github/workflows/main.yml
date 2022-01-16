@@ -46,5 +46,8 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@master
         env:
           ACCESS_TOKEN: ${{ secrets.hw }}
-          branch: github-pages
-          folder: build
+          BRANCH: github-pages
+          FOLDER: build
+          BUILD_SCRIPT: npm ci && npm run build
+        run: |
+          echo $ACCESS_TOKEN $BRANCH $FOLDER $BUILD_SCRIPT
