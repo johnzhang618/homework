@@ -7,18 +7,22 @@ on:
 
 jobs:
   deploy:
-    name: Deploy
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
+    - name: Use Node
+      uses: actions/setup-node@v2
       with: 
-        node-version: '17.3.0'
+        node-version: '17.x'
+        cache: 'npm'
 
     - name: Install dependencies
       run: npm install
 
     - name: Run build
-      uses: npm run build 
-    - uses: serve -s build
+      run: npm ci
+      run: npm run build 
+      run: npm test
+      run: serve -s build
