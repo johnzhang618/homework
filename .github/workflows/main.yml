@@ -1,0 +1,28 @@
+name: hw
+
+on: 
+  push:
+    branches:
+      - main
+
+env: 
+  TZ: Asia/Shanghai
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+
+    - name: Setup node
+      uses: actions@v1
+      with: node-version: '17.3.0'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run build
+      uses: npm build
