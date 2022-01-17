@@ -22,3 +22,9 @@
 ### 2. main chart
     a. chart 切换操作区域
     b. cahrt 展示区域
+
+
+1. 公共化组件 storybook 
+2. reactive functional programing, baconJS
+3. 自己准备task
+
