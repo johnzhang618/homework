@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/homework/static/css/main.b63aef8b.css",
+    "main.js": "/homework/static/js/main.a5596fdc.js",
+    "static/js/787.7bc9124e.chunk.js": "/homework/static/js/787.7bc9124e.chunk.js",
+    "static/media/nunito-latin-regular.woff": "/homework/static/media/nunito-latin-regular.1f30e08faa7c60d1f7ac.woff",
+    "static/media/nunito-latin-regular.woff2": "/homework/static/media/nunito-latin-regular.39a18f443d434999b89b.woff2",
+    "index.html": "/homework/index.html",
+    "main.b63aef8b.css.map": "/homework/static/css/main.b63aef8b.css.map",
+    "main.a5596fdc.js.map": "/homework/static/js/main.a5596fdc.js.map",
+    "787.7bc9124e.chunk.js.map": "/homework/static/js/787.7bc9124e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b63aef8b.css",
+    "static/js/main.a5596fdc.js"
+  ]
+}
